@@ -13,8 +13,8 @@ Example:
 
 Optional options:
 
---url=URL	sets SPDX tag "downloadLocation"
---name=NAME	sets SPDX tag "name"
+	--url=URL	sets SPDX tag "downloadLocation"
+	--name=NAME	sets SPDX tag "name"
 
 Tag output will currently be random sorted due to perl hash arrays used,
 but I am not sure this is relevant.
