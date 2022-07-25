@@ -60,7 +60,7 @@ foreach my $rpm (@rpms) {
 	$package{"packageName"} = $name;		# FIXME ... full version and arch?
 	$package{"packageVersion"} = $version;
 	$package{"packageFilename"} = $basename;
-	$package{"SPDXID"} = "SPDXRef-$name";		# FIXME ... full version and arch?
+	$package{"SPDXID"} = "SPDXRef-$basename";
 	#$package{"downloadLocation"} = "$url$rpm";
 	$package{"filesAnalyzed"} = "false";
 
