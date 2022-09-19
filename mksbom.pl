@@ -23,7 +23,7 @@ my %map = (
 	"name"			=> $name,
 	"documentNamespace"	=> "https://ftp.suse.com/pub/projects/security/spdx/",	# FIXME
 	"CreationInfo" 		=> {
-		"Creators"	=> [ {"Tool" => $0, } ],
+		"Creators"	=> [ {"Tool" => "https://github.com/msmeissn/rpm-list-to-sbom", } ],
 		"Created"	=> $curtime,
 	},
 );
@@ -45,18 +45,12 @@ foreach my $rpm (@rpms) {
 	my $name = $1;
 	my $version = $2;
 
-	my $license = `rpm -qp --qf '%{LICENSE}\n' $rpm`;
-	chomp($license);
-
-	my $url = `rpm -qp --qf '%{URL}\n' $rpm`;
-	chomp($url);
-	my $sourceinfo = `rpm -qp --qf '%{SOURCERPM}\n' $rpm`;
-	chomp($sourceinfo);
+	my $rquery = `rpm -qp --qf '%{LICENSE}|%{URL}|%{SUMMARY}|%{SOURCERPM}\n' $rpm`;
+	chomp $rquery;
+	my ($license,$url,$sourceinfo,$summary) = split (/\|/,$rquery);
 
 	my $description = `rpm -qp --qf '%{DESCRIPTION}\n' $rpm`;
 	chomp($description);
-	my $summary = `rpm -qp --qf '%{SUMMARY}\n' $rpm`;
-	chomp($summary);
 
 	#"checksum": { "algorithm": "SHA1", "checksumValue": "14ff98203c3ddd2bd4803c00b5225d2551ca603c" },
 	my $sha2 = `sha256sum $rpm`;
